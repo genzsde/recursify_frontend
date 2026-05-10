@@ -1,0 +1,83 @@
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <div class="icon-box">
+        <i class="code-icon">&lt;/&gt;</i>
+      </div>
+      <span class="brand-name">Recursify</span>
+    </div>
+
+    <nav class="nav-links">
+      <a routerLink="/features">Features</a>
+      <a routerLink="/dashboard">Dashboard</a>
+    </nav>
+
+    <div class="actions">
+      <button class="btn-text" (click)="navigateToLogin()">Sign In</button>
+      <button class="btn-primary" (click)="navigateToRegister()">Get Started</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-container">
+
+    <div class="badge-wrapper">
+      <span class="badge">
+        <span class="dot"></span>
+        NEW: AI-POWERED REMINDERS
+      </span>
+    </div>
+
+    <h1 class="hero-title">
+      Master DSA with <br />
+      <span class="gradient-text">Infinite Consistency.</span>
+    </h1>
+
+    <p class="hero-desc">
+      Recursify helps you track your DSA journey with precision. Get difficulty-based reminders,
+      manage your progress through an enhanced dashboard, and build a sustainable coding habit.
+    </p>
+
+    <div class="hero-actions">
+      <button class="btn-primary" (click)="navigateToRegister()">Get Started for Free</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-wrapper">
+
+    <span class="features-label">FEATURES</span>
+
+    <h2 class="features-heading">
+      Everything you need to master DSA.
+    </h2>
+
+    <p class="features-sub">
+      Recursify provides the tools and insights you need to stay on track and reach your coding goals.
+    </p>
+
+    <div class="features-grid">
+  <div class="feature-card" *ngFor="let f of features">
+
+    <!-- ICON (NO DOWNLOAD NEEDED) -->
+    <div class="icon">
+      <span class="material-icons-outlined">{{ f.icon }}</span>
+    </div>
+
+    <h3>{{ f.title }}</h3>
+    <p>{{ f.description }}</p>
+
+  </div>
+</div>
+
+
+  </div>
+</section>

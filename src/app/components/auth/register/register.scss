@@ -1,0 +1,185 @@
+/* ===== Remove default spacing ===== */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #667eea;
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ===== Wrapper ===== */
+.auth-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===== Card ===== */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 42px 36px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.4s ease;
+}
+
+/* Glow effect */
+.auth-card::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(255,255,255,0.25), transparent);
+  top: -40px;
+  right: -40px;
+  border-radius: 50%;
+  filter: blur(20px);
+}
+
+.auth-card::after {
+  content: "";
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(255,255,255,0.18), transparent);
+  bottom: -30px;
+  left: -30px;
+  border-radius: 50%;
+  filter: blur(18px);
+}
+
+/* ===== Title ===== */
+.auth-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+/* ===== Inputs ===== */
+.auth-card input {
+  width: 100%;
+  padding: 13px 16px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  transition: 0.25s;
+}
+
+.auth-card input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.auth-card input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+  transform: scale(1.01);
+}
+
+/* ===== Error ===== */
+.error-box {
+  background: rgba(255, 0, 0, 0.15);
+  border: 1px solid rgba(255, 0, 0, 0.4);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* ===== Button ===== */
+.auth-card button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 14px;
+  border: none;
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffffff, #eaeaff);
+  color: #5a4fcf;
+  transition: 0.25s;
+}
+
+.auth-card button:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.auth-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== Switch text ===== */
+.switch-text {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.switch-text a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Animation ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 22px;
+    border-radius: 20px;
+  }
+
+  .auth-title {
+    font-size: 22px;
+  }
+}

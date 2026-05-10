@@ -1,0 +1,59 @@
+<div class="dashboard-container">
+  <header class="topbar bento-card header-accent">
+    <div class="welcome-text">
+      <h2>Today Question, <span>{{ userName }}</span></h2>
+      <p class="subtitle">You have {{ questions.length }} questions tracked.</p>
+    </div>
+    <div class="header-actions">
+        <button class="btn-secondary" (click)="goBack()">🏠 Dashboard</button>
+    </div>
+  </header>
+<main class="content-grid">
+    <div class="status-box" *ngIf="loading">
+      <span class="loader"></span> Fetching questions...
+    </div>
+    <div class="error-box" *ngIf="error">⚠️ {{ error }}</div>
+
+    <div class="bento-grid" *ngIf="!loading && !error">
+      <section class="bento-card question-card"
+               *ngFor="let q of questions;
+               let i = index"
+               [class.wide]="i % 0 === 0"
+               [class.tall]="i % 0 === 0">
+
+        <div class="card-header">
+          <span class="qno">#{{ q.questionNumber }}</span>
+          <span class="difficulty-pill" [ngClass]="q.difficulty.toLowerCase()">
+            {{ q.difficulty }}
+          </span>
+        </div>
+
+        <div class="card-body">
+          <h3 class="title">{{ q.title }}</h3>
+          <p class="description">{{ q.description }}</p>
+        </div>
+
+        <div class="meta-info">
+          <div class="meta-item">
+            <span class="icon">📅</span>
+            <small>Next: {{ q.nextRevisionDate | date:'mediumDate' }}</small>
+          </div>
+          <div class="meta-item">
+            <span class="icon">✅</span>
+            <small>Solved: {{ q.solveCount }}</small>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a class="external-link" [href]="q.link" target="_blank">View ↗</a>
+          <div class="action-group">
+            <button class="btn-icon update"  title="Update">🔃</button>
+          </div>
+        </div>
+      </section>
+    </div>
+    </main>
+
+  <p *ngIf="!loading && questions.length === 0">No questions available.</p>
+
+  </div>

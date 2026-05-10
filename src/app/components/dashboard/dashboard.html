@@ -1,24 +1,160 @@
-<div class="dashboard-wrapper">
-  <h2>Welcome, {{ userName }}</h2>
-  <button (click)="logout()">Logout</button>
+<div class="dashboard-container">
+  <header class="topbar bento-card header-accent">
 
-  <hr />
 
-  <p *ngIf="loading">Fetching questions...</p>
-  <p *ngIf="error" style="color: red;">{{ error }}</p>
 
-  <ul *ngIf="!loading && !error">
-    <li *ngFor="let q of questions" style="margin-bottom: 20px; list-style-type: none; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
-      <ul style="list-style-type: none; padding: 0;">
-        <li><strong>Question #</strong> {{ q.questionNumber }}</li>
-        <li><strong>Title:</strong> {{ q.title }}</li>
-        <li><strong>Description:</strong> {{ q.description }}</li>
-        <li><strong>Difficulty:</strong> {{ q.difficulty }}</li>
-        <li><strong>Next Revision:</strong> {{ q.nextRevisionDate | date }}</li>
-        <li><strong>Times Solved:</strong> {{ q.solveCount }}</li>
-      </ul>
-    </li>
-  </ul>
+    <div class="welcome-text">
+      <h2>Welcome back, <span>{{ userName }}</span></h2>
+      <p class="subtitle">You have {{ questions.length }} questions tracked.</p>
+    </div>
 
-  <p *ngIf="!loading && questions.length === 0">No questions available.</p>
+    <!-- pie chart -->
+     <!-- <div class="progress-chart">
+      <canvas #difficultyChart></canvas>
+
+    </div> -->
+
+    <div class="header-actions">
+
+      <!-- <button class="btn-primary" (click)="goToAddQuestion()">➕ Add Question</button>
+       -->
+      <div style="margin: 10px;">
+      <button class="btn-secondary" (click)="goToTodayQuestion()">📅 Today's Question</button>
+      </div>
+      <div style="margin-left: 10px;padding: 0.7rem 1.1rem;">
+      <button class="btn-logout" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="bento-card filter-bar">
+
+  <div class="search-box">
+    <input type="text"
+           placeholder="Search question..."
+           [(ngModel)]="searchText"
+           (input)="applyFilters()" />
+  </div>
+
+  <div class="filters">
+
+    <select [(ngModel)]="difficultyFilter" (change)="applyFilters()">
+      <option value="">All Difficulty</option>
+      <option value="Easy">Easy</option>
+      <option value="Medium">Medium</option>
+      <option value="Hard">Hard</option>
+    </select>
+
+    <!-- <select [(ngModel)]="statusFilter" (change)="applyFilters()">
+      <option value="">All Status</option>
+      <option value="solved">Solved</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="due">Due Today</option>
+    </select> -->
+
+    <button class="clear-btn" (click)="clearFilters()">Reset</button>
+
+  </div>
+</section>
+
+  <main class="content-grid">
+    <div class="status-box" *ngIf="loading">
+      <span class="loader"></span> Fetching questions...
+    </div>
+    <div class="error-box" *ngIf="error">⚠️ {{ error }}</div>
+
+    <div class="bento-grid" *ngIf="!loading && !error">
+      <section class="bento-card question-card"
+               *ngFor="let q of filteredQuestions;
+               let i = index"
+               (click)="openDetails(q)">
+
+        <div class="card-header">
+          <span class="qno">#{{ q.questionNumber }}</span>
+          <span class="difficulty-pill" [ngClass]="q.difficulty.toLowerCase()">
+            {{ q.difficulty }}
+          </span>
+        </div>
+
+        <div class="card-body">
+          <h3 class="title">{{ q.title }}</h3>
+          <p class="description">{{ q.description }}</p>
+        </div>
+
+        <div class="meta-info">
+          <div class="meta-item">
+            <span class="icon">📅</span>
+            <small>Next: {{ q.nextRevisionDate | date:'mediumDate' }}</small>
+          </div>
+          <div class="meta-item">
+            <span class="icon">✅</span>
+            <small>Solved: {{ q.solveCount }}</small>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a class="external-link" [href]="q.link" target="_blank">View ↗</a>
+          <div class="action-group">
+            <button class="btn-icon update"  title="Update">🔃</button>
+            <button class="btn-icon delete" (click)="openDeletePopup(q.id)" title="Delete">🗑</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="bento-card empty-state" *ngIf="!loading && questions.length === 0">
+      <p>No questions found. Start by adding one!</p>
+    </section>
+  </main>
+</div>
+
+<div class="modal-overlay" *ngIf="showConfirm">
+  <div class="bento-card modal-card">
+    <h3>Delete Question</h3>
+    <p>This action cannot be undone. Are you sure?</p>
+    <div class="modal-actions">
+      <button class="btn-danger" (click)="confirmDelete(); $event.stopPropagation()">Delete</button>
+      <button class="btn-ghost" (click)="cancelDelete()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showDetails">
+  <div class="bento-card details-card" (click)="$event.stopPropagation()">
+
+    <div class="details-header">
+      <h2>#{{ selectedQuestion?.questionNumber }} {{ selectedQuestion?.title }}</h2>
+      <span class="difficulty-pill"
+            [ngClass]="selectedQuestion?.difficulty?.toLowerCase()">
+        {{ selectedQuestion?.difficulty }}
+      </span>
+    </div>
+
+    <div class="details-body">
+
+      <!-- <h4>Description</h4>
+      <p class="full-desc">{{ selectedQuestion?.description }}</p> -->
+
+      <h4>Description</h4>
+      <pre class="example-block">{{ selectedQuestion?.description }}</pre>
+
+      <div class="meta">
+        <p><b>Next Revision:</b> {{ selectedQuestion?.nextRevisionDate | date:'mediumDate' }}</p>
+        <p><b>Solved Count:</b> {{ selectedQuestion?.solveCount }}</p>
+        <a [href]="selectedQuestion?.link" target="_blank">Open Problem ↗</a>
+      </div>
+
+      <h4>Your Notes / Pseudocode</h4>
+      <textarea [(ngModel)]="notes"
+                placeholder="Write approach, edge cases, tricks, pattern..."
+                rows="6"></textarea>
+
+    </div>
+
+    <div class="details-actions">
+      <button class="btn-primary" (click)="saveNotes()">Save Notes</button>
+      <button class="btn-ghost" (click)="closeDetails()">Close</button>
+    </div>
+
+  </div>
 </div>

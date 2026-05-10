@@ -1,0 +1,95 @@
+<div class="container">
+
+  <h2>{{ userName }}, Add New Question</h2>
+  <button type="button" (click)="goBack()">Go Back</button>
+
+  <form (ngSubmit)="submit()" #form="ngForm" novalidate>
+
+    <!-- Title -->
+    <label>Title</label>
+    <input
+      type="text"
+      name="title"
+      [(ngModel)]="question.title"
+      #title="ngModel"
+      required
+      minlength="3"
+    />
+    <small style="color:red" *ngIf="title.invalid && title.touched">
+      Title must be at least 3 characters
+    </small>
+
+
+    <!-- Description -->
+    <label>Description</label>
+    <textarea
+      name="description"
+      [(ngModel)]="question.description"
+      #desc="ngModel"
+      required
+      minlength="5"
+    ></textarea>
+    <small style="color:red" *ngIf="desc.invalid && desc.touched">
+      Description must be at least 5 characters
+    </small>
+
+
+    <!-- Question Number -->
+    <label>Question Number</label>
+    <input
+      type="number"
+      name="questionNumber"
+      [(ngModel)]="question.questionNumber"
+      #qno="ngModel"
+      required
+      min="1"
+    />
+    <small style="color:red" *ngIf="qno.invalid && qno.touched">
+      Question number must be greater than 0
+    </small>
+
+
+    <!-- Difficulty -->
+    <label>Difficulty</label>
+    <select name="difficulty" [(ngModel)]="question.difficulty">
+      <option value="EASY">EASY</option>
+      <option value="MEDIUM">MEDIUM</option>
+      <option value="HARD">HARD</option>
+    </select>
+
+
+    <!-- Link -->
+    <label>Link</label>
+    <input
+      type="text"
+      name="link"
+      [(ngModel)]="question.link"
+      #link="ngModel"
+      required
+      pattern="https?://.+"
+    />
+    <small style="color:red" *ngIf="link.invalid && link.touched">
+      Enter a valid URL (must start with http/https)
+    </small>
+
+
+    <!-- Submit Button -->
+    <br /><br />
+    <button type="submit" [disabled]="form.invalid">
+      Add Question
+    </button>
+
+  </form>
+
+
+  <!-- SUCCESS MESSAGE -->
+  <p *ngIf="successMessage" style="color:green; font-weight:600;">
+    {{ successMessage }}
+  </p>
+
+  <!-- BACKEND ERROR (Duplicate Question etc) -->
+  <p *ngIf="errorMessage" style="color:red; font-weight:600;">
+    {{ errorMessage }}
+  </p>
+
+</div>

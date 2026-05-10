@@ -1,8 +1,53 @@
-<div class="login-container">
-  <h2>Login</h2>
-  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
-  <input type="email" placeholder="Email" [(ngModel)]="email">
-  <input type="password" placeholder="Password" [(ngModel)]="password">
-  <button (click)="login()">Login</button>
-  <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+    <h2 class="auth-title">Welcome Back</h2>
+
+    <div *ngIf="errorMsg" class="error-box">{{ errorMsg }}</div>
+
+    <!-- EMAIL -->
+    <input
+      type="email"
+      placeholder="Email address"
+      [(ngModel)]="email"
+      name="email"
+      required
+      #emailRef="ngModel"
+    />
+
+    <div class="error-box" *ngIf="emailRef.invalid && emailRef.touched">
+      <span *ngIf="emailRef.errors?.['required']">Email is required</span>
+      <span *ngIf="emailRef.errors?.['email']">Invalid email format</span>
+    </div>
+
+    <!-- PASSWORD -->
+    <input
+      type="password"
+      placeholder="Password"
+      [(ngModel)]="password"
+      name="password"
+      required
+      minlength="6"
+      #passRef="ngModel"
+    />
+
+    <div class="error-box" *ngIf="passRef.invalid && passRef.touched">
+      <span *ngIf="passRef.errors?.['required']">Password is required</span>
+      <span *ngIf="passRef.errors?.['minlength']">
+        Minimum 6 characters required
+      </span>
+    </div>
+
+    <button
+      (click)="login()"
+      [disabled]="emailRef.invalid || passRef.invalid || loading"
+    >
+      {{ loading ? 'Logging in...' : 'Login' }}
+    </button>
+
+    <p class="switch-text">
+      Don't have an account? <a routerLink="/register">Create account</a>
+    </p>
+
+  </div>
 </div>

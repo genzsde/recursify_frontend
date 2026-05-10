@@ -6,4 +6,5 @@ export interface Question {
   difficulty: string;
   nextRevisionDate: string;
   solveCount: number;
+  link: string;
 }
