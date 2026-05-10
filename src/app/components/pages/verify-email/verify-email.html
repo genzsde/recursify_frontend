@@ -1,0 +1,56 @@
+<div class="verify-container">
+
+  <div class="verify-card">
+
+    <h2>Email Verification</h2>
+
+    <p class="subtitle">
+      Enter the 6-digit verification code
+      sent to
+    </p>
+
+    <strong class="email-text">
+      {{ email }}
+    </strong>
+
+    <input
+      type="text"
+      maxlength="6"
+      [(ngModel)]="code"
+      placeholder="Enter OTP"
+    />
+
+    <!-- SUCCESS -->
+
+    <div
+      class="success-box"
+      *ngIf="successMsg"
+    >
+      {{ successMsg }}
+    </div>
+
+    <!-- ERROR -->
+
+    <div
+      class="error-box"
+      *ngIf="errorMsg"
+    >
+      {{ errorMsg }}
+    </div>
+
+    <button
+      (click)="verifyEmail()"
+      [disabled]="loading"
+    >
+
+      {{
+        loading
+          ? 'Verifying...'
+          : 'Verify Email'
+      }}
+
+    </button>
+
+  </div>
+
+</div>
