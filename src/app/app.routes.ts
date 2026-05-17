@@ -6,12 +6,14 @@ import { AddNewQuestionComponent } from './components/add-new-question/add-new-q
 import { TodayQuestionComponent } from './components/today-question/today-question';
 import { AuthGuard } from './guards/auth-guard';
 import { HomeComponent } from './components/home/home';
+import { VerifyEmailComponent } from './components/pages/verify-email/verify-email';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'home', component: HomeComponent },
     { path: 'login', component:  LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'verify-email', component: VerifyEmailComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'add-question', component: AddNewQuestionComponent, canActivate: [AuthGuard] },
     { path: 'today-question', component: TodayQuestionComponent, canActivate: [AuthGuard] }

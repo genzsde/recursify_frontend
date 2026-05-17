@@ -7,4 +7,5 @@ export interface Question {
   nextRevisionDate: string;
   solveCount: number;
   link: string;
+  notes?: string;
 }
