@@ -1,83 +1,370 @@
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
-<header class="header">
+<!-- ================= ANIMATED BACKGROUND PARTICLES ================= -->
+<div class="particles-container">
+  <div class="particle p1"></div>
+  <div class="particle p2"></div>
+  <div class="particle p3"></div>
+  <div class="particle p4"></div>
+  <div class="particle p5"></div>
+  <div class="particle p6"></div>
+  <div class="particle p7"></div>
+  <div class="particle p8"></div>
+  <div class="particle p9"></div>
+  <div class="particle p10"></div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header class="header" [class.scrolled]="scrolled">
+  <div class="header-glass"></div>
   <div class="container">
-    <div class="logo">
+    <div class="logo" (click)="router.navigate(['/'])">
       <div class="icon-box">
-        <i class="code-icon">&lt;/&gt;</i>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
       </div>
       <span class="brand-name">Recursify</span>
     </div>
 
-    <nav class="nav-links">
+    <nav class="nav-links" [class.open]="mobileMenuOpen">
       <a routerLink="/features">Features</a>
       <a routerLink="/dashboard">Dashboard</a>
+      <a (click)="navigateToLogin()">Sign In</a>
+      <button class="btn-primary mobile-cta" (click)="navigateToRegister()">Get Started</button>
     </nav>
 
     <div class="actions">
       <button class="btn-text" (click)="navigateToLogin()">Sign In</button>
-      <button class="btn-primary" (click)="navigateToRegister()">Get Started</button>
+      <button class="btn-primary" (click)="navigateToRegister()">
+        <span>Get Started</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
     </div>
+
+    <button class="mobile-toggle" (click)="toggleMobileMenu()" [class.active]="mobileMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 <section class="hero">
-  <div class="hero-container">
+  <div class="hero-bg">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+    <div class="gradient-orb orb-4"></div>
+  </div>
 
-    <div class="badge-wrapper">
+  <div class="hero-container">
+    <div class="badge-wrapper reveal">
       <span class="badge">
-        <span class="dot"></span>
-        NEW: AI-POWERED REMINDERS
+        <span class="pulse-dot"></span>
+        AI-POWERED REMINDERS
       </span>
     </div>
 
-    <h1 class="hero-title">
-      Master DSA with <br />
-      <span class="gradient-text">Infinite Consistency.</span>
+    <h1 class="hero-title reveal">
+      <span class="title-line">Master DSA with</span>
+      <span class="gradient-text">Infinite Consistency</span>
     </h1>
 
-    <p class="hero-desc">
-      Recursify helps you track your DSA journey with precision. Get difficulty-based reminders,
-      manage your progress through an enhanced dashboard, and build a sustainable coding habit.
+    <p class="hero-desc reveal">
+      Track your DSA journey with precision. Get difficulty-based reminders,
+      manage progress through an enhanced dashboard, and build a sustainable coding habit.
     </p>
 
-    <div class="hero-actions">
-      <button class="btn-primary" (click)="navigateToRegister()">Get Started for Free</button>
+    <div class="hero-actions reveal">
+      <button class="btn-primary btn-glow btn-large magnetic" (click)="navigateToRegister()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        Start Free
+      </button>
+      <button class="btn-secondary btn-large magnetic" (click)="navigateToLogin()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polygon points="10 8 16 12 10 16 10 8"></polygon>
+        </svg>
+        Watch Demo
+      </button>
     </div>
 
+    <!-- Floating Code Snippets Animation -->
+    <!-- <div class="floating-snippets reveal">
+      <div class="snippet snippet-1">
+        <div class="snippet-header">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="snippet-body">
+          <div class="s-line"><span class="s-kw">const</span> <span class="s-var">progress</span> = <span class="s-br">{{'{'}}</span></div>
+          <div class="s-line"><span class="s-ind"></span><span class="s-key">solved</span>: <span class="s-num">247</span>,</div>
+          <div class="s-line"><span class="s-ind"></span><span class="s-key">streak</span>: <span class="s-num">42</span>,</div>
+          <div class="s-line"><span class="s-ind"></span><span class="s-key">next</span>: <span class="s-str">"Trees"</span></div>
+          <div class="s-line"><span class="s-br">{{'}'}}</span>;</div>
+        </div>
+      </div>
+      <div class="snippet snippet-2">
+        <div class="snippet-header">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="snippet-body">
+          <div class="s-line"><span class="s-kw">function</span> <span class="s-func">solve</span><span class="s-br">()</span> <span class="s-br">{{'{'}}</span></div>
+          <div class="s-line"><span class="s-ind"></span><span class="s-kw">return</span> <span class="s-str">"Success"</span>;</div>
+          <div class="s-line"><span class="s-br">{{'}'}}</span></div>
+        </div>
+      </div>
+      <div class="snippet snippet-3">
+        <div class="snippet-header">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="snippet-body">
+          <div class="s-line"><span class="s-com">// Keep the streak alive 🔥</span></div>
+          <div class="s-line"><span class="s-kw">while</span> <span class="s-br">(</span><span class="s-var">learning</span><span class="s-br">)</span> <span class="s-br">{{'{'}}</span></div>
+          <div class="s-line"><span class="s-ind"></span><span class="s-var">grow</span><span class="s-br">()</span>;</div>
+          <div class="s-line"><span class="s-br">{{'}'}}</span></div>
+        </div>
+      </div>
+    </div> -->
   </div>
 </section>
 
-<!-- FEATURES -->
+<!-- ================= TRUST BAR ================= -->
+<section class="trust-bar">
+  <p class="trust-label reveal">Trusted by engineers from</p>
+  <div class="trust-logos">
+    <div class="trust-logo reveal">Google</div>
+    <div class="trust-logo reveal">Meta</div>
+    <div class="trust-logo reveal">Amazon</div>
+    <div class="trust-logo reveal">Netflix</div>
+    <div class="trust-logo reveal">Stripe</div>
+    <div class="trust-logo reveal">Airbnb</div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
 <section class="features">
   <div class="features-wrapper">
-
-    <span class="features-label">FEATURES</span>
-
-    <h2 class="features-heading">
-      Everything you need to master DSA.
-    </h2>
-
-    <p class="features-sub">
-      Recursify provides the tools and insights you need to stay on track and reach your coding goals.
-    </p>
-
-    <div class="features-grid">
-  <div class="feature-card" *ngFor="let f of features">
-
-    <!-- ICON (NO DOWNLOAD NEEDED) -->
-    <div class="icon">
-      <span class="material-icons-outlined">{{ f.icon }}</span>
+    <div class="section-header reveal">
+      <span class="section-eyebrow">FEATURES</span>
+      <h2 class="section-title">
+        Everything you need to <span class="gradient-text">master DSA</span>
+      </h2>
+      <p class="section-subtitle">
+        Recursify provides the tools and insights you need to stay on track and reach your coding goals.
+      </p>
     </div>
 
-    <h3>{{ f.title }}</h3>
-    <p>{{ f.description }}</p>
-
-  </div>
-</div>
-
-
+    <div class="features-grid">
+      <div class="feature-card reveal" *ngFor="let f of features; let i = index" [style.--card-color]="f.color">
+        <div class="card-bg-glow"></div>
+        <div class="card-inner">
+          <div class="icon-box-feature" [style.background]="f.gradient">
+            <span class="material-icons-outlined">{{ f.icon }}</span>
+          </div>
+          <h3>{{ f.title }}</h3>
+          <p>{{ f.description }}</p>
+        </div>
+        <div class="card-shimmer"></div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section class="how-it-works">
+  <div class="how-wrapper">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">HOW IT WORKS</span>
+      <h2 class="section-title">
+        Three steps to <span class="gradient-text">consistency</span>
+      </h2>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="step-icon-wrap">
+          <span class="material-icons-outlined">add_task</span>
+        </div>
+        <h3>Log Your Problems</h3>
+        <p>Record every problem you solve with our intelligent categorization system.</p>
+      </div>
+      <div class="step-arrow reveal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">02</div>
+        <div class="step-icon-wrap">
+          <span class="material-icons-outlined">schedule</span>
+        </div>
+        <h3>Get Smart Reminders</h3>
+        <p>Our AI adapts to your pace and sends reminders based on difficulty and retention.</p>
+      </div>
+      <div class="step-arrow reveal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">03</div>
+        <div class="step-icon-wrap">
+          <span class="material-icons-outlined">emoji_events</span>
+        </div>
+        <h3>Track & Improve</h3>
+        <p>Visualize your growth with deep analytics and benchmark against the community.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="testimonials">
+  <div class="testimonials-wrapper">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">TESTIMONIALS</span>
+      <h2 class="section-title">
+        Loved by <span class="gradient-text">thousands</span>
+      </h2>
+    </div>
+
+    <div class="testimonials-carousel reveal">
+      <div class="carousel-track" [style.transform]="'translateX(-' + (activeTestimonial * 100) + '%)'">
+        <div class="testimonial-slide" *ngFor="let t of testimonials">
+          <div class="testimonial-card">
+            <div class="stars">
+              <span class="material-icons-outlined" *ngFor="let star of [1,2,3,4,5]">star</span>
+            </div>
+            <p class="testimonial-text">"{{ t.text }}"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">{{ t.avatar }}</div>
+              <div class="author-info">
+                <span class="author-name">{{ t.name }}</span>
+                <span class="author-role">{{ t.role }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-dots">
+        <button *ngFor="let t of testimonials; let i = index" 
+                [class.active]="i === activeTestimonial"
+                (click)="activeTestimonial = i"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA SECTION ================= -->
+<section class="cta-section">
+  <div class="cta-bg">
+    <div class="cta-orb"></div>
+    <div class="cta-orb cta-orb-2"></div>
+  </div>
+  <div class="cta-content reveal">
+    <h2>Ready to start your <span class="gradient-text">DSA journey?</span></h2>
+    <p>Join thousands of developers mastering algorithms one day at a time.</p>
+    <div class="cta-actions">
+      <button class="btn-primary btn-glow btn-large" (click)="navigateToRegister()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        Start Learning Free
+      </button>
+      <div class="cta-trust">
+        <div class="trust-avatars">
+          <span>👨‍💻</span>
+          <span>👩‍💻</span>
+          <span>🧑‍💻</span>
+          <span>👩‍💻</span>
+        </div>
+        <span class="trust-text">12,000+ developers joined this month</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="icon-box small">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+        </div>
+        <span class="brand-name">Recursify</span>
+      </div>
+      <p class="footer-tagline">Master Data Structures & Algorithms with infinite consistency.</p>
+      <div class="footer-social">
+        <a class="social-link" aria-label="Twitter">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+          </svg>
+        </a>
+        <a class="social-link" aria-label="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+        </a>
+        <a class="social-link" aria-label="Discord">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a>Features</a>
+        <a>Dashboard</a>
+        <a>Pricing</a>
+        <a>Changelog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a>Documentation</a>
+        <a>Blog</a>
+        <a>Community</a>
+        <a>DSA Roadmap</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a>About</a>
+        <a>Careers</a>
+        <a>Contact</a>
+        <a>Status</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a>Privacy</a>
+        <a>Terms</a>
+        <a>Security</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Recursify. Built for developers, by developers.</p>
+    <div class="footer-heart">
+      <span class="material-icons-outlined">favorite</span>
+      <span>Made with love for the coding community</span>
+    </div>
+  </div>
+</footer>
