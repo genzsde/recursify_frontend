@@ -697,29 +697,3 @@ textarea {
     border-radius: 18px;
   }
 }
-
-// ==========================================
-// VERY SMALL DEVICES
-// ==========================================
-@media (max-width: 360px) {
-  .icon-box {
-    width: 38px;
-    height: 38px;
-  }
-
-  .title {
-    font-size: 0.95rem;
-  }
-
-  .description {
-    font-size: 0.85rem;
-  }
-
-  .filters {
-    flex-direction: column;
-  }
-
-  .filters select {
-    width: 100%;
-  }
-}
